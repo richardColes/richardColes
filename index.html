@@ -22,43 +22,31 @@
         </thead>
         <tbody>
           <tr>
-            <td>1. Hierarchy</td>
+            <td>1. Contains</td>
             <td>
               <select id="selGeonameId">
-                <option value="2657896">Zürich</option>
+                <option value="2746385">Bargen</option>
               </select>
             </td>
             <td><button id="btnSubmit1">Submit</button></td>
           </tr>
           <tr>
-            <td>2. Ocean</td>
+            <td>2. Hierarchy</td>
             <td>
-              <select id="selLat">
-                <option value="40.78343">North Atlantic Ocean</option>
-              </select>
-              <select id="selLng">
-                <option value="-43.96625">North Atlantic Ocean</option>
+              <select id="selGeonameId">
+                <option value="2657896">Zürich</option>
               </select>
             </td>
             <td><button id="btnSubmit2">Submit</button></td>
           </tr>
           <tr>
-            <td>3. Timezone</td>
+            <td>3. Neighbours</td>
             <td>
-              <select id="selLat">
-                <option value="47.01">Austria</option>
+              <select id="selGeonameId">
+                <option value="2658434">Austria</option>
               </select>
-              <select id="selLng">
-                <option value="10.2">Austria</option>
-              </select>
-              <select id="selRadius">
-                <option value="">?</option>
-              </select>
-              <select id="selLang">
-                <option value="">?</option>
-              </select>
-              <select id="selDate">
-                <option value="">?</option>
+              <select id="selCountry">
+                <option value="AT">Austria</option>
               </select>
             </td>
             <td><button id="btnSubmit3">Submit</button></td>
@@ -68,11 +56,8 @@
           <tr>
             <td id="divResults" colspan="3">Results</td>
           </tr>
-
-          <div id="results">
-          
           <tr>
-            <td>
+            <td colspan="3">
               Toponym Name: <span id="txtToponymName"></span>
               <br>
               Name: <span id="txtName"></span>
@@ -92,40 +77,7 @@
               Fcode: <span id="txtFcode"></span>
               <br>
             </td>
-            <td>
-              Geoname Id: <span id="txtGeonameId2"></span>
-              <br>
-              Name: <span id="txtName2"></span>
-              <br>
-              Distance: <span id="txtDistance"></span>
-            </td>
-            <td>
-              Country Code: <span id="txtCountryCode2"></span>
-              <br>
-              Country Name: <span id="txtCountryName2"></span>
-              <br>
-              Lat: <span id="txtLat2"></span>
-              <br>
-              Lng: <span id="txtLng2"></span>
-              <br>
-              Timezone Id: <span id="txtTimezoneId"></span>
-              <br>
-              Dst Offset: <span id="txtDstOffset"></span>
-              <br>
-              Gmt Offset: <span id="txtGmtOffset"></span>
-              <br>
-              Raw Offset: <span id="txtRawOffset"></span>
-              <br>
-              Time: <span id="txtTime"></span>
-              <br>
-              Sunrise: <span id="txtSunrise"></span>
-              <br>
-              Sunset: <span id="txtSunset"></span>
-            </td>
           </tr>
-
-          </div>
-
         </tfoot>
       </table>
     </div>
