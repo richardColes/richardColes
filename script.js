@@ -33,7 +33,7 @@ $('#btnSubmit2').click(function() {
     type: 'POST',
     dataType: 'json',
     data: {
-      geonameId: $('#selGeonameId').val()
+      geonameId: $('#selGeonameId2').val()
     },
     success: function(result) {
       console.log(JSON.stringify(result));
@@ -62,7 +62,7 @@ $('#btnSubmit3').click(function() {
     type: 'POST',
     dataType: 'json',
     data: {
-      geonameId: $('#selGeonameId').val(),
+      geonameId: $('#selGeonameId3').val(),
       country: $('#selCountry').val()
     },
     success: function(result) {
