@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>Gazetteer</title>
+    <link href="style.css" type="text/css" rel="stylesheet">
+    <link href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" rel="stylesheet"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <select>
+          <option id="AFG">Afghanistan</option>
+          <option id="ARG">Argentina</option>
+          <option id="ARM">Armenia</option>
+          <option id="">Austria</option>
+          <option id="AZE">Azerbaijan</option>
+          <option id="BHS">Bahamas</option>
+          <option id="BGD">Bangladesh</option>
+          <option id="BLZ">Belize</option>
+          <option id="BEN">Benin</option>
+          <option id="BTN">Bhutan</option>
+          <option id="BOL">Bolivia</option>
+          <option id="BWA">Botswana</option>
+          <option id="BRA">Brazil</option>
+          <option id="BRN">Brunei</option>
+          <option id="BDI">Burundi</option>
+          <option id="KHM">Cambodia</option>
+          <option id="CND">Canada</option>
+          <option id="CAF">Central African Republic</option>
+          <option id="CHL">Chile</option>
+          <option id="CHN">China</option>
+          <option id="COL">Colombia</option>
+          <option id="CRI">Costa Rica</option>
+          <option id="CUB">Cuba</option>
+          <option id="CYP">Cyprus</option>
+          <option id="PRK">Dem. Rep. Korea</option>
+          <option id="DOM">Dominican Rep.</option>
+          <option id="ECU">Ecuador</option>
+          <option id="SLV">El Salvador</option>
+          <option id="FLK">Falkland Is.</option>
+          <option id="GEO">Georgia</option>
+          <option id="GRL">Greenland</option>
+          <option id="GTM">Guatemala</option>
+          <option id="GUY">Guyana</option>
+          <option id="HTI">Haiti</option>
+          <option id="HND">Honduras</option>
+          <option id="IND">India</option>
+          <option id="IDN">Indonesia</option>
+          <option id="IRN">Iran</option>
+          <option id="IRQ">Iraq</option>
+          <option id="ISR">Israel</option>
+          <option id="JAM">Jamaica</option>
+          <option id="JPN">Japan</option>
+          <option id="JOR">Jordan</option>
+          <option id="KAZ">Kazakhstan</option>
+          <option id="KOR">Korea</option>
+          <option id="KWT">Kuwait</option>
+          <option id="KGZ">Kyrgyzstan</option>
+          <option id="LAO">Lao PDR</option>
+          <option id="LBN">Lebanon</option>
+          <option id="MYS">Malaysia</option>
+          <option id="MEX">Mexico</option>
+          <option id="MNG">Mongolia</option>
+          <option id="MMR">Myanmar</option>
+          <option id="-99">N. Cyprus</option>
+          <option id="NPL">Nepal</option>
+          <option id="NIC">Nicaragua</option>
+          <option id="OMN">Oman</option>
+          <option id="PAK">Pakistan</option>
+          <option id="PSE">Palestine</option>
+          <option id="PAN">Panama</option>
+          <option id="PRY">Paraguay</option>
+          <option id="PER">Peru</option>
+          <option id="PHL">Philippines</option>
+          <option id="PRI">Puerto Rico</option>
+          <option id="QAT">Qatar</option>
+          <option id="SAU">Saudi Arabia</option>
+          <option id="LKA">Sri Lanka</option>
+          <option id="SUR">Suriname</option>
+          <option id="SYR">Syria</option>
+          <option id="TWN">Taiwan</option>
+          <option id="TJK">Tajikistan</option>
+          <option id="TLS">Timor-Leste</option>
+          <option id="TTO">Trinidad and Tobago</option>
+          <option id="TKM">Turkmenistan</option>
+          <option id="ARE">United Arab Emirates</option>
+          <option id="USA">United States</option>
+          <option id="URY">Uruguay</option>
+          <option id="UZB">Uzbekistan</option>
+          <option id="VEN">Venezuela</option>
+          <option id="YEM">Yemen</option>
+        </select>
+      </nav>
+    </header>
+
+    <div id="map"></div>
+
+    <div id="exchange rates"></div>
+    <div id="weather"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+     crossorigin=""></script>
+    <script type="application/javascript" src="script.js"></script>
+  </body>
+</html>
