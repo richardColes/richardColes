@@ -25,6 +25,28 @@ var baseMaps = {
 
 L.control.layers(baseMaps).addTo(map);
 
+function addBorder(countryCode) {
+  $.ajax({
+    url: "countryBorders.php",
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      code: countryCode
+    },
+    success: function(result) {
+      if (result.status.name == "ok") {
+        border = L.geoJSON(result['data'], {style: {color: '#357a38'}});
+        border.addTo(map);
+        map.fitBounds(border.getBounds());
+      }
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log(jqXHR);
+    }
+  });
+};
+
+addBorder("BS");
 
 // function getCountryInfo(country) {
 //   $.ajax({
@@ -152,26 +174,60 @@ L.control.layers(baseMaps).addTo(map);
 //   });
 // };
 
-// function getWeatherInfo(country) {
-//   $.ajax({
-//     url: "weather.php",
-//     type: 'GET',
-//     dataType: 'json',
-//     data: {
-//       ???
-//     },
-//     success: function(result) {
-//       if (result.status.name == "ok") {
-//         ???
-//       }
-//     },
-//     error: function(jqXHR, textStatus, errorThrown) {
-//       console.log(JSON.stringify(jqXHR));
-//       console.log(JSON.stringify(textStatus));
-//       console.log(JSON.stringify(errorThrown));
-//     }
-//   });
-// };
+function getWeatherInfo(country) {
+  $.ajax({
+    url: "weather.php",
+    type: 'GET',
+    dataType: 'json',
+    data: {
+      lat: country.lat,
+      lng: country.lng
+    },
+    success: function(result) {
+      if (result.status.name == "ok") {
+        $('#feels-like').html(result.main.feels_like)
+      }
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log(JSON.stringify(jqXHR));
+      console.log(JSON.stringify(textStatus));
+      console.log(JSON.stringify(errorThrown));
+    }
+  });
+};
+
+L.easyButton('<img src="/path/to/img/of/penguin.png">', function(btn, map){
+  var antarctica = [-77,70];
+  map.setView(antarctica);
+}).addTo(map);
+
+L.easyButton('<img src="/path/to/img/of/penguin.png">', function(btn, map){
+  var bahamas = [23.75975,-77.53466];
+  map.setView(bahamas);
+}).addTo(map);
+
+var stateChangingButton = L.easyButton({
+  states: [{
+          stateName: 'zoom-to-forest',        // name the state
+          icon:      'fa-tree',               // and define its properties
+          title:     'zoom to a forest',      // like its title
+          onClick: function(btn, map) {       // and its callback
+              map.setView([46.25,-121.8],10);
+              btn.state('zoom-to-school');    // change state on click!
+          }
+      }, {
+          stateName: 'zoom-to-school',
+          icon:      'fa-university',
+          title:     'zoom to a school',
+          onClick: function(btn, map) {
+              map.setView([42.3748204,-71.1161913],16);
+              btn.state('zoom-to-forest');
+          }
+  }]
+});
+
+stateChangingButton.addTo(map);
+
 
 function countryData() {
   var polygon = L.polygon([
