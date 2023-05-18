@@ -55,6 +55,36 @@ var overlayMaps = {
 
 L.control.layers(baseMaps, overlayMaps).addTo(map);
 
+//
+
+let countryNames = [];
+
+$(document).ready(() => {
+  $.ajax({
+    type: "GET",
+    url: "php/countryBorders.php",
+    dataType: 'json',
+    success: function(data) {
+      for(let i = 0; i < data.features.length; i++) {
+        let name = data.features[i].properties.name;
+        let iso_a2 = data.features[i].properties.iso_a2;
+
+        countryNames.push([name, iso_a2]);
+      }
+    }
+  });
+});
+
+var test = new Array(["Bahamas", "BS"], ["Canada", "CA"]);
+
+let select = document.getElementById("selectCountry");
+
+for(let i = 0; i < countryNames.length; i++) {
+  select.innerHTML += `<option value="${countryNames[i][1]}">${countryNames[i][0]}</option>`;
+}
+
+//
+
 // var mymap = L.map('map', {
 //   center: [48.7, 11.5],
 //   zoom: 6,
@@ -133,57 +163,57 @@ L.control.layers(baseMaps, overlayMaps).addTo(map);
 // // Pop-up
 // map.on('click', onMapClick);
 
-$('#options').on('change', function() {
-  addBorder(countryCode);
-});
+// $('#options').on('change', function() {
+//   addBorder(countryCode);
+// });
 
-function addBorder(countryCode) {
-  $.ajax({
-    url: "countryBorders.php",
-    type: 'POST',
-    dataType: 'json',
-    data: {
-      code: countryCode
-    },
-    success: function(result) {
-      if (result.status.name == "ok") {
-        border = L.geoJSON(result['data'], {style: {color: '#357a38'}});
-        border.addTo(map);
-        map.fitBounds(border.getBounds());
-      }
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-      console.log(jqXHR);
-    }
-  });
-};
+// function addBorder(countryCode) {
+//   $.ajax({
+//     url: "countryBorders.php",
+//     type: 'POST',
+//     dataType: 'json',
+//     data: {
+//       code: countryCode
+//     },
+//     success: function(result) {
+//       if (result.status.name == "ok") {
+//         border = L.geoJSON(result['data'], {style: {color: '#357a38'}});
+//         border.addTo(map);
+//         map.fitBounds(border.getBounds());
+//       }
+//     },
+//     error: function(jqXHR, textStatus, errorThrown) {
+//       console.log(jqXHR);
+//     }
+//   });
+// };
 
-function getWeatherInfo(country) {
-  $.ajax({
-    url: "weather.php",
-    type: 'GET',
-    dataType: 'json',
-    data: {
-      lat: country.lat,
-      lng: country.lng
-    },
-    success: function(result) {
-      if (result.status.name == "ok") {
-        $('#pp').html(result.main.feels_like);
-      }
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-      console.log(JSON.stringify(jqXHR));
-      console.log(JSON.stringify(textStatus));
-      console.log(JSON.stringify(errorThrown));
-    }
-  });
-};
+// function getWeatherInfo(country) {
+//   $.ajax({
+//     url: "weather.php",
+//     type: 'GET',
+//     dataType: 'json',
+//     data: {
+//       lat: country.lat,
+//       lng: country.lng
+//     },
+//     success: function(result) {
+//       if (result.status.name == "ok") {
+//         $('#pp').html(result.main.feels_like);
+//       }
+//     },
+//     error: function(jqXHR, textStatus, errorThrown) {
+//       console.log(JSON.stringify(jqXHR));
+//       console.log(JSON.stringify(textStatus));
+//       console.log(JSON.stringify(errorThrown));
+//     }
+//   });
+// };
 
-L.easyButton('fa-comment-o', function(btn, map) {
-  $('#myModal').modal('show');
-  getWeatherInfo(countrycoord);
-}, 'Weather').addTo(map);
+// L.easyButton('fa-comment-o', function(btn, map) {
+//   $('#myModal').modal('show');
+//   getWeatherInfo(countrycoord);
+// }, 'Weather').addTo(map);
 
 
 
