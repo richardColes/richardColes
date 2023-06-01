@@ -760,38 +760,38 @@ L.easyButton('fa-comment-o', function(btn, map) {
 //   });
 // };
 
-L.easyButton('<img src="/path/to/img/of/penguin.png">', function(btn, map){
-  var antarctica = [-77,70];
-  map.setView(antarctica);
-}).addTo(map);
+// L.easyButton('<img src="/path/to/img/of/penguin.png">', function(btn, map){
+//   var antarctica = [-77,70];
+//   map.setView(antarctica);
+// }).addTo(map);
 
-L.easyButton('<img src="/path/to/img/of/penguin.png">', function(btn, map){
-  var marker = L.marker([17.438139, 78.395830]);
-  marker.bindPopup('This is Tutorialspoint').openPopup();
-  marker.addTo(map);
-}).addTo(map);
+// L.easyButton('<img src="/path/to/img/of/penguin.png">', function(btn, map){
+//   var marker = L.marker([17.438139, 78.395830]);
+//   marker.bindPopup('This is Tutorialspoint').openPopup();
+//   marker.addTo(map);
+// }).addTo(map);
 
-var stateChangingButton = L.easyButton({
-  states: [{
-          stateName: 'zoom-to-forest',        // name the state
-          icon:      'fa-tree',               // and define its properties
-          title:     'zoom to a forest',      // like its title
-          onClick: function(btn, map) {       // and its callback
-              map.setView([46.25,-121.8],10);
-              btn.state('zoom-to-school');    // change state on click!
-          }
-      }, {
-          stateName: 'zoom-to-school',
-          icon:      'fa-university',
-          title:     'zoom to a school',
-          onClick: function(btn, map) {
-              map.setView([42.3748204,-71.1161913],16);
-              btn.state('zoom-to-forest');
-          }
-  }]
-});
+// var stateChangingButton = L.easyButton({
+//   states: [{
+//           stateName: 'zoom-to-forest',        // name the state
+//           icon:      'fa-tree',               // and define its properties
+//           title:     'zoom to a forest',      // like its title
+//           onClick: function(btn, map) {       // and its callback
+//               map.setView([46.25,-121.8],10);
+//               btn.state('zoom-to-school');    // change state on click!
+//           }
+//       }, {
+//           stateName: 'zoom-to-school',
+//           icon:      'fa-university',
+//           title:     'zoom to a school',
+//           onClick: function(btn, map) {
+//               map.setView([42.3748204,-71.1161913],16);
+//               btn.state('zoom-to-forest');
+//           }
+//   }]
+// });
 
-stateChangingButton.addTo(map);
+// stateChangingButton.addTo(map);
 
 
 // function countryData() {
