@@ -106,22 +106,45 @@
 
     <div id="map"></div>
 
-
-    <button id="button1">Submit</button>
-    <p id="pp"></p>
-
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
+    <!-- Modal 1 -->
+    <div class="modal fade" id="myModal1" role="dialog">
       <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Modal Header</h4>
+            <h4 class="modal-title">Exchange Rates</h4>
           </div>
           <div class="modal-body">
-            <p>Feels Like: <span id="txtFeelsLike">C</span></p>
-            <p>Cloud Coverage: <span id="txtCloudCoverage">%</span></p>
+            <p><strong>GBP: </strong><span id="txtExchangeRate"></span></p>
+            <br>
+            <p><strong>Data Source: </strong>openexchangerates.org</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 2 -->
+    <div class="modal fade" id="myModal2" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Weather</h4>
+          </div>
+          <div class="modal-body">
+            <p><strong>Weather Type: </strong><span id="txtWeatherType"></span></p>
+            <p><strong>Temperature: </strong><span id="txtTemperature"></span>°C</p>
+            <p><strong>Feels Like: </strong><span id="txtFeelsLike"></span>°C</p>
+            <p><strong>Humidity: </strong><span id="txtHumidity"></span>%</p>
+            <p><strong>Windspeed: </strong><span id="txtWindspeed"></span>kmh</p>
+            <p><strong>Cloud Coverage: </strong><span id="txtCloudCoverage"></span>%</p>
+            <br>
+            <p><strong>Data Source: </strong>openweathermap.org <span id="txtWeatherTimeNormal"></span></p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
