@@ -55,8 +55,6 @@ var overlayMaps = {
 
 L.control.layers(baseMaps, overlayMaps).addTo(map);
 
-//
-
 // for(let i = 0; i < data.features.length; i++) {
 //   let name = data.features[i].properties.name;
 //   let iso_a2 = data.features[i].properties.iso_a2;
@@ -65,7 +63,6 @@ L.control.layers(baseMaps, overlayMaps).addTo(map);
 // }
 
 $(document).ready(() => {
-  let countryNames = [];
   $.ajax({
     type: "GET",
     url: "php/countryBorders.php",
@@ -76,6 +73,7 @@ $(document).ready(() => {
       for(let i = 0; i < data.data.features.length; i++) {
         select.innerHTML += `<option value="${data.data.features[i].properties.iso_a2}">${data.data.features[i].properties.name}</option>`;
       }
+      document.getElementByTagName("option").sort();
     },
     error: function(err) {
       console.log(err);
@@ -83,7 +81,127 @@ $(document).ready(() => {
   });
 });
 
-var test = new Array(["Bahamas", "BS"], ["Canada", "CA"]);
+$('#selectCountry').on('change', function() {
+  $.ajax({
+    url: "php/countryBorders.php",
+    type: 'GET',
+    dataType: 'json',
+    success: function(data) {
+      if (result.status.name == "ok") {
+        border = L.geoJSON(data.features[1].geometry.coordinates, {style: {color: '#357a38'}});
+        border.addTo(map);
+        map.fitBounds(border.getBounds());
+      }
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log(jqXHR);
+    }
+  });
+});
+
+L.easyButton('fa-comment-o', function(btn, map) {
+  $('#myModal1').modal('show');
+  $(document).ready(function() {
+    $.ajax({
+      url: "https://openexchangerates.org/api/latest.json?app_id=48933b75a67342ec8f079785e1473e92",
+      dataType: 'json',
+      success: function(data) {
+        exchangeRateGBP = data.rates.GBP;
+
+        $("#txtExchangeRate").html(exchangeRateGBP);
+      },
+      error: function() {
+        alert("Error retrieving data from Openexchangerates!");
+      }
+    });
+  });
+}, 'Exchange Rates').addTo(map);
+
+L.easyButton('fa-comment-o', function(btn, map) {
+  $('#myModal2').modal('show');
+  $(document).ready(function() {
+    $.ajax({
+      url: "https://api.openweathermap.org/data/2.5/weather?lat=" + "46.55001" + '&lon=' + "-63.6645" + "&appid=e70e583d40878c78c9ef4626078028b9",
+      dataType: 'json',
+      success: function(data) {
+        // storing json data in variables
+        var weatherlocation_lon = data.coord.lon;
+        var weatherlocation_lat = data.coord.lat;
+
+        var weathertime = data.dt; // Time of weatherdata (UTC)
+
+        var weatherIcon = data.weather[0].icon;
+        var weatherType = data.weather[0].main;
+        var weatherDescription = data.weather[0].description;
+        var temp = data.main.temp;
+        var feelsLike = data.main.feels_like;
+        var humidity = data.main.humidity;
+        var windspeed = data.wind.speed;
+        var cloudCoverage = data.clouds.all;
+
+        // Converting Unix UTC Time
+        var utctimecalc = new Date(weathertime * 1000);
+        var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+        var month = months[utctimecalc.getMonth()];
+        var time = utctimecalc.getDate() + "/" + month + "/" + utctimecalc.getFullYear() + " " + utctimecalc.getHours() + ":" + utctimecalc.getMinutes();
+
+        // Recalculations
+        var weatherIconLogo = "http://openweathermap.org/img/w/" + weatherIcon + ".png";
+        var weathertimenormal = time;
+        var tempInCelsius = Math.round((temp - 273) * 100) / 100;  // Converts temperature from Kelvin to Celsius
+        var feelsLikeInCelsius = Math.round((feelsLike - 273) * 100) / 100;  // Converts temperature from Kelvin to Celsius
+        var windspeedInKmh = Math.round((windspeed * 3.6) * 100) / 100; // Converts windspeed from m/s to km/h, rounded to 2 decimals
+
+        $("#txtWeatherType").html(weatherType);
+        $("#txtWeatherDescription").html(weatherDescription);
+        $("#txtTemperature").html(tempInCelsius);
+        $("#txtFeelsLike").html(feelsLikeInCelsius);
+        $("#txtHumidity").html(humidity);
+        $("#txtWindspeed").html(windspeedInKmh);
+        $("#txtCloudCoverage").html(cloudCoverage);
+        $("#txtWeatherTimeNormal").html(weathertimenormal);
+      },
+      error: function() {
+        alert("Error retrieving data from Openweathermap!");
+      }
+    });
+  });
+}, 'Weather').addTo(map);
+
+// $(document).ready(() => {
+//   $.ajax({
+//     type: "GET",
+//     url: "php/countryBorders.php",
+//     dataType: 'json',
+//     success: function(data) {
+//       for(let i = 0; i < data.features.length; i++) {
+//         let name = data.features[i].properties.name;
+//         let iso_a2 = data.features[i].properties.iso_a2;
+
+//         countryNames.push([name, iso_a2]);
+//       }
+//     },
+//     error: function(err) {
+//       console.log(err);
+//     }
+//   });
+// });
+
+// // var test = new Array(["Bahamas", "BS"], ["Canada", "CA"]);
+
+// // countryNames.sort();
+
+// let select = document.getElementById("selectCountry");
+
+// for(let i = 0; i < countryNames.length; i++) {
+//   select.innerHTML += `<option value="${countryNames[i][1]}">${countryNames[i][0]}</option>`;
+// }
+
+// for(let i = 0; i < countryNames.length; i++) {
+//   border = L.geoJSON(countryNames[i][2], {style: {color: '#357a38'}});
+//   border.addTo(map);
+//   map.fitBounds(border.getBounds());
+// }
 
 //
 
@@ -165,9 +283,26 @@ var test = new Array(["Bahamas", "BS"], ["Canada", "CA"]);
 // // Pop-up
 // map.on('click', onMapClick);
 
-// $('#options').on('change', function() {
-//   addBorder(countryCode);
-// });
+// function addBorder(countryCode) {
+//   $.ajax({
+//     url: "php/countryBorders.php",
+//     type: 'GET',
+//     dataType: 'json',
+//     data: {
+//       code: countryCode
+//     },
+//     success: function(result) {
+//       if (result.status.name == "ok") {
+//         border = L.geoJSON(result['data'], {style: {color: '#357a38'}});
+//         border.addTo(map);
+//         map.fitBounds(border.getBounds());
+//       }
+//     },
+//     error: function(jqXHR, textStatus, errorThrown) {
+//       console.log(jqXHR);
+//     }
+//   });
+// };
 
 // function addBorder(countryCode) {
 //   $.ajax({
@@ -311,51 +446,6 @@ var test = new Array(["Bahamas", "BS"], ["Canada", "CA"]);
 // var lat = latlng.lat;
 // var lng = latlng.lng;
 
-// L.easyButton('fa-comment-o', function(btn, map) {
-//   $('#myModal').modal('show');
-//   $(document).ready(function() {
-//     $.ajax({
-//       url: "https://api.openweathermap.org/data/2.5/weather?lat=" + e.latlng.lat + '&lon=' + e.latlng.lng + "&appid=e70e583d40878c78c9ef4626078028b9",
-//       dataType: 'json',
-//       success: function(data) {
-//         // storing json data in variables
-//         weatherlocation_lon = data.coord.lon;
-//         weatherlocation_lat = data.coord.lat;
-
-//         weathertime = data.dt; // Time of weatherdata (UTC)
-
-//         weatherIcon = data.weather[0].icon;
-//         weatherType = data.weather[0].main;
-//         weatherDescription = data.weather[0].description;
-//         temp = data.main.temp;
-//         feelsLike = data.main.feels_like;
-//         humidity = data.main.humidity;
-//         windspeed = data.wind.speed;
-//         cloudCoverage = data.clouds.all;
-
-//         // Converting Unix UTC Time
-//         var utctimecalc = new Date(weathertime * 1000);
-//         var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
-//         var month = months[utctimecalc.getMonth()];
-//         var time = utctimecalc.getDate() + "/" + month + "/" + utctimecalc.getFullYear() + " " + utctimecalc.getHours() + ":" + utctimecalc.getMinutes();
-
-//         // Recalculations
-//         var weatherIconLogo = "http://openweathermap.org/img/w/" + weatherIcon + ".png";
-//         var weathertimenormal = time;
-//         var tempInCelsius = Math.round((temp - 273) * 100) / 100;  // Converts temperature from Kelvin to Celsius
-//         var feelsLikeInCelsius = Math.round((temp - 273) * 100) / 100;  // Converts temperature from Kelvin to Celsius
-//         var windspeedInKmh = Math.round((windspeed * 3.6) * 100) / 100; // Converts windspeed from m/s to km/h, rounded to 2 decimals
-
-//         // Popup with weather
-//         $("#txtFeelsLike").html(feelsLikeInCelsius);
-//         $('#txtCloudCoverage').html(cloudCoverage);
-//       },
-//       error: function() {
-//         alert("Error retrieving data from Openweathermap!");
-//       }
-//     });
-//   });
-// }, 'Weather').addTo(map);
 
 
 // L.easyButton('<img src="/path/to/img/of/penguin.png">', function(btn, map) {
