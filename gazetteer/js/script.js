@@ -73,7 +73,6 @@ $(document).ready(() => {
       for(let i = 0; i < data.data.features.length; i++) {
         select.innerHTML += `<option value="${data.data.features[i].properties.iso_a2}">${data.data.features[i].properties.name}</option>`;
       }
-      document.getElementByTagName("option").sort();
     },
     error: function(err) {
       console.log(err);
@@ -87,11 +86,9 @@ $('#selectCountry').on('change', function() {
     type: 'GET',
     dataType: 'json',
     success: function(data) {
-      if (result.status.name == "ok") {
-        border = L.geoJSON(data.features[1].geometry.coordinates, {style: {color: '#357a38'}});
-        border.addTo(map);
-        map.fitBounds(border.getBounds());
-      }
+      border = L.geoJSON(data.data.features[1].geometry, {style: {color: '#357a38'}});
+      border.addTo(map);
+      map.fitBounds(border.getBounds());
     },
     error: function(jqXHR, textStatus, errorThrown) {
       console.log(jqXHR);
