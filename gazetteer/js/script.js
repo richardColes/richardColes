@@ -86,9 +86,13 @@ $('#selectCountry').on('change', function() {
     type: 'GET',
     dataType: 'json',
     success: function(data) {
-      border = L.geoJSON(data.data.features[1].geometry, {style: {color: '#357a38'}});
-      border.addTo(map);
-      map.fitBounds(border.getBounds());
+      for(let i = 0; i < data.data.features.length; i++) {
+        if(document.getElementById("option").value = data.data.features[i].properties.iso_a2) {
+          border = L.geoJSON(data.data.features[i].geometry, {style: {color: '#357a38'}});
+          border.addTo(map);
+          map.fitBounds(border.getBounds());
+        }
+      }
     },
     error: function(jqXHR, textStatus, errorThrown) {
       console.log(jqXHR);
