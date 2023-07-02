@@ -36,7 +36,6 @@ var kabul = L.marker([34.543896, 69.160652]).bindPopup("City of Kabul, capital o
     buenosAires = L.marker([-34.603722, -58.381592]).bindPopup("City of Buenos Aires, capital of Argentina<br>Population: 1"),
     yerevan = L.marker([40.177200, 44.503490]).bindPopup("City of Yerevan, capital of Armenia<br>Population: 1"),
     canberra = L.marker([-35.282001, 149.128998]).bindPopup("City of Canberra, capital of Australia<br>Population: 1"),
-    vienna = L.marker([48.210033, 16.363449]).bindPopup("City of Vienna, capital of Austira<br>Population: 1"),
     baku = L.marker([40.409264, 49.867092]).bindPopup("City of Baku, capital of Azerbaijan<br>Population: 1"),
     sheffield = L.marker([53.383331, -1.466667]).bindPopup("City of Sheffield<br>Population: 1<br>Birthplace of ?"),
     sunderland = L.marker([54.906101, -1.381130]).bindPopup("City of Sunderland<br>Population: 1<br>Birthplace of ?"),
@@ -61,6 +60,8 @@ L.control.layers(baseMaps, overlayMaps).addTo(map);
 
 //   countryNames.push([name, iso_a2]);
 // }
+
+// L.marker([48.210033, 16.363449]).bindPopup();
 
 $(document).ready(() => {
   $.ajax({
@@ -87,7 +88,7 @@ $('#selectCountry').on('change', function() {
     dataType: 'json',
     success: function(data) {
       for(let i = 0; i < data.data.features.length; i++) {
-        if(document.getElementById("option").value = data.data.features[i].properties.iso_a2) {
+        if(document.getElementById("selectCountry").value == data.data.features[i].properties.iso_a2) {
           border = L.geoJSON(data.data.features[i].geometry, {style: {color: '#357a38'}});
           border.addTo(map);
           map.fitBounds(border.getBounds());
